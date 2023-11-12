@@ -1,8 +1,8 @@
 #pragma once
 
-#include <string>
+#include <interface/StorageInterface.h>
 
-class StorageInterface {
+class Storage_LittleFS : public StorageInterface {
 
 public:
   virtual bool init() = 0;
