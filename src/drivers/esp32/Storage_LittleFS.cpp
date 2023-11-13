@@ -11,13 +11,26 @@ bool Storage_LittleFS::writeFile(std::string filename, std::string data) {
     return false;
   }
 
-  f.write(data);
+  auto writtenBytes = f.print(data.c_str());
 
   f.close();
 
-  return true;
+  return (writtenBytes == data.length());
 }
 
-std::string Storage_LittleFS::readFile(std::string filename) {}
+std::string Storage_LittleFS::readFile(std::string filename) {
+  File f = LittleFS.open(filename.c_str(), "r", false);
+  if (!f) {
+    return "";
+  }
 
-bool Storage_LittleFS::deleteFile(std::string filename) { return true; }
+  std::string fileContent = f.readString().c_str();
+
+  f.close();
+
+  return fileContent;
+}
+
+bool Storage_LittleFS::deleteFile(std::string filename) {
+  return LittleFS.remove(filename.c_str());
+}
