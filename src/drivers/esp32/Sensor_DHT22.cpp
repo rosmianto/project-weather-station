@@ -1,4 +1,4 @@
-#include "Sensor_DHT122.h"
+#include "Sensor_DHT22.h"
 
 bool Sensor_DHT22::init() {
   _dht.begin();
