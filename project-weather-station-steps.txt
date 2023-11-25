@@ -1,0 +1,118 @@
+* Install VSCode and PlatformIO. Definitely easy, you probably have done this
+* Create a new project called "project-weather-station" target DOIT ESP32 board
+* Delete unused readme files
+* Setup git repo using `git init` and create the first commit
+* Setup github repo, assign the remote location using git remote add origin
+* Sync the repo
+
+^ That step is a very good firmware development practices. We use git to track our progress.
+
+We're entering design phase. We start by defining our project requirements:
+* Able to measure indoor temperature and humidity
+* Able to set/get real-time datetime value
+* Able to fetch weather data from the internet
+* Able to store weather data offline split in day
+* Able to display current data and status
+* Able to set update interval and display last updated data
+* Operating 24/7
+
+Updated requirements:
+* Able to fetch temperature and humidity data
+* Able to send those data to the internet
+* Able to handle internet connection loss using offline storage so the weather data won't be lost
+* Able to fetch and store current datetime for data timestamp
+* Show the data via a small display
+* USB powered
+* Able to recover from internet connection loss (e.g. WiFi disconnected)
+
+Notice that the requirements are silent about how we do things.
+The requirements dictate the what features we need to build.
+The requirements can actually specify even more specific limit, 
+such as temperature accuracy, humidity tolerance, etc.
+
+From the requirements, we can derive technical specs:
+* Temperature and humidity: DHT10
+* MCU: ESP32
+* Internet connection via WiFi
+* Display: SSD1306 128x64 OLED Display
+* RTC Module DS3231
+* Storage: Internal Flash using LittleFS
+* USB powered
+
+Next step, we're going to need to create 4 diagrams:
+* Hardware design
+* Firmware architecture
+* Firmware design
+* Firmware/Program flow
+
+While this project is actually too trivial for such diagrams, I will
+still show you how to do it you so can better understanding of the proper firmware development process.
+
+But I don't want to be too strict either. Firmware development in a high-standard environment usually involves
+tons of formal documents and you can look for the templates on the internet. Sometimes the documents can be longer 
+than the firmware code.
+
+However, we should really adjust the standard to our needs. Small startups don't need RFC document just to communicate
+a new feature. Personally I use Notion Page and/or Confluence pages to store the documentation, as long as the documents
+are clear and easy to follow, there is no need to overthink anything.
+
+If we visualize the system by creating drawio diagram, it will look like this:
+[weather-station.drawio]
+
+The next step isn't coding, yet. Now we have to design each module APIs.
+
+module APIs is basically just function signatures for each class/file
+
+After we defined the APIs for each classes, now we can implement the interface and the interface implementation.
+
+To apply interface in C++ we use Abstract Classes concept. Why we use interface, because the firmware will have better
+modularity and the code will be far easier to test. Modularity and testability are two important concept of building robust
+firmware.
+
+After implementing the interfaces, we then begin to create the drivers for each peripherals. In this project, we build:
+* DS3231
+* LittleFS 
+* DHT11
+* SSD1306
+
+---------------------------------------------------------------
+chatgpt output
+
+Certainly! Designing features that can be tested independently of the hardware is a great approach for educational purposes, especially when focusing on unit testing and software architecture. Here are some feature ideas that are hardware-independent and suitable for creating test cases:
+
+    JSON Configuration Parser:
+        Feature Description: Implement a parser that reads and applies settings from a JSON configuration file. This file could include settings like measurement units (Celsius/Fahrenheit), data logging intervals, or alert thresholds.
+        Test Case Opportunities: Test the parser's ability to correctly read various JSON structures, handle missing or additional fields, and deal with different data types (strings, numbers, booleans).
+
+    Data Formatter:
+        Feature Description: Create a module that formats sensor data into a human-readable format or prepares it for transmission over the network.
+        Test Case Opportunities: Test the formatter's ability to handle different data inputs and output the correct string formats. Include edge cases and error handling.
+
+    Mock Sensor Data Generator:
+        Feature Description: Develop a function or class that generates mock sensor data (temperature, humidity, etc.) for testing purposes.
+        Test Case Opportunities: Test the generator's ability to produce data within expected ranges and patterns. This can also be used to simulate different environmental conditions for other tests.
+
+    Timezone-Aware Timestamp Converter:
+        Feature Description: Implement a function that converts Unix timestamps to human-readable dates and times, considering different timezones.
+        Test Case Opportunities: Test the converter with various timestamps and timezones, ensuring the output is correctly formatted and accurate.
+
+    Remote API Data Fetcher and Parser:
+        Feature Description: Write a module that fetches weather data from a remote API (like OpenWeather) and parses the JSON response.
+        Test Case Opportunities: Test the module's ability to handle HTTP requests, parse JSON responses correctly, and deal with network errors or malformed data.
+
+    Alert System for Data Anomalies:
+        Feature Description: Create a system that analyzes sensor data and triggers alerts if the data falls outside of predefined thresholds or shows anomalies.
+        Test Case Opportunities: Test the system's ability to detect various data patterns and anomalies, and verify that alerts are triggered correctly.
+
+    Data Aggregator and Analyzer:
+        Feature Description: Develop functionality to aggregate sensor data over time and perform basic analysis (like average, min, max).
+        Test Case Opportunities: Test the aggregator's ability to correctly calculate statistics from a series of data points.
+
+    User Preference Manager:
+        Feature Description: Implement a system to manage user preferences and settings, storing them in a format like JSON.
+        Test Case Opportunities: Test the system's ability to save, load, and apply user settings correctly.
+
+Each of these features can be developed and tested without the need for physical hardware, focusing instead on the logic and functionality of the software. They provide a wide range of testing scenarios, from basic function testing to more complex integration and error-handling tests.
+----------------------------------------------
+
+
