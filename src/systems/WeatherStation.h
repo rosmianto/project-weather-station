@@ -6,15 +6,19 @@
 #include <interface/StorageInterface.h>
 #include <interface/TimeInterface.h>
 
+#include <systems/Configurator.h>
+#include <systems/Settings.h>
+
 class WeatherStation {
 
 public:
   WeatherStation(DisplayInterface &disp, NetworkInterface &net,
                  SensorInterface &sens, StorageInterface &stg,
-                 TimeInterface &time);
+                 TimeInterface &time, );
 
   bool init();
   bool updateSensorData();
+  void checkSerialConfig();
 
 private:
   DisplayInterface &_disp;
@@ -22,4 +26,8 @@ private:
   SensorInterface &_sens;
   StorageInterface &_stg;
   TimeInterface &_time;
+
+public:
+  Settings _cfg{_stg};
+  Configurator cfgr;
 };

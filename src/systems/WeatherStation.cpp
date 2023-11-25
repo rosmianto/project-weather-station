@@ -19,6 +19,8 @@ bool WeatherStation::init() {
   _disp.setHumidityValue(_sens.readHumidity());
   _disp.setTemperatureValue(_sens.readTemperature());
 
+  _cfg.load();
+
   return true;
 }
 
@@ -29,3 +31,5 @@ bool WeatherStation::updateSensorData() {
 
   return true;
 }
+
+void WeatherStation::checkSerialConfig() {}
