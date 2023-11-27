@@ -16,17 +16,18 @@ bool WeatherStation::init() {
   _time.setCurrentTime(1700793918UL);
 
   _disp.setConnectionStatus(false);
-  _disp.setDatetimeValue(_time.getCurrentTime());
-  _disp.setHumidityValue(_sens.readHumidity());
-  _disp.setTemperatureValue(_sens.readTemperature());
 
   _cfg.load();
+
+  updateSensorData();
 
   return true;
 }
 
 bool WeatherStation::updateSensorData() {
-  _disp.setDatetimeValue(_time.getCurrentTime());
+  std::string currentDatetime =
+      Formatter::formatTime(_time.getCurrentTime(), _cfg.timezone);
+  _disp.setDatetimeValue(currentDatetime);
   _disp.setHumidityValue(_sens.readHumidity());
   _disp.setTemperatureValue(_sens.readTemperature());
 

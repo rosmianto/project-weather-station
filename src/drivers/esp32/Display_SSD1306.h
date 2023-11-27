@@ -13,14 +13,14 @@ public:
   bool setTemperatureValue(float value);
   bool setHumidityValue(float value);
   bool setConnectionStatus(bool connected);
-  bool setDatetimeValue(uint32_t unixtime);
+  bool setDatetimeValue(std::string datetimeStr);
 
 private:
   Adafruit_SSD1306 _oled{128, 64, &Wire, -1};
   float _temperature = 0;
   float _humidity = 0;
   bool _connectionStatus = false;
-  uint32_t _unixtime = 0;
+  std::string _datetimeStr;
 
   void refreshDisplay();
 };

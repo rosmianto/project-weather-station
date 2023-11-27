@@ -27,8 +27,8 @@ bool Display_SSD1306::setConnectionStatus(bool connected) {
   return true;
 }
 
-bool Display_SSD1306::setDatetimeValue(uint32_t unixtime) {
-  _unixtime = unixtime;
+bool Display_SSD1306::setDatetimeValue(std::string datetimeStr) {
+  _datetimeStr = datetimeStr;
   refreshDisplay();
   return true;
 }
@@ -39,6 +39,6 @@ void Display_SSD1306::refreshDisplay() {
   _oled.printf("Temp: %.2f\r\n", _temperature);
   _oled.printf("Hum: %.2f\r\n", _humidity);
   _oled.printf("Connected: %d\r\n", _connectionStatus);
-  _oled.printf("Time: %d\r\n", _unixtime);
+  _oled.printf("Time: %s\r\n", _datetimeStr);
   _oled.display();
 }

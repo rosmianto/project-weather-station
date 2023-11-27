@@ -8,6 +8,7 @@
 #include <interface/TimeInterface.h>
 
 #include <systems/Configurator.h>
+#include <systems/Formatter.h>
 #include <systems/Settings.h>
 
 class WeatherStation {
