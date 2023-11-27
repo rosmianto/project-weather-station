@@ -3,6 +3,7 @@
 #include <interface/DisplayInterface.h>
 #include <interface/NetworkInterface.h>
 #include <interface/SensorInterface.h>
+#include <interface/SerialInterface.h>
 #include <interface/StorageInterface.h>
 #include <interface/TimeInterface.h>
 
@@ -14,7 +15,7 @@ class WeatherStation {
 public:
   WeatherStation(DisplayInterface &disp, NetworkInterface &net,
                  SensorInterface &sens, StorageInterface &stg,
-                 TimeInterface &time, );
+                 TimeInterface &time, SerialInterface &ser);
 
   bool init();
   bool updateSensorData();
@@ -26,8 +27,9 @@ private:
   SensorInterface &_sens;
   StorageInterface &_stg;
   TimeInterface &_time;
+  SerialInterface &_ser;
 
 public:
   Settings _cfg{_stg};
-  Configurator cfgr;
+  Configurator _cfgr;
 };

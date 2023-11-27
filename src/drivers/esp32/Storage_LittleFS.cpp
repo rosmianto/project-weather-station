@@ -34,3 +34,7 @@ std::string Storage_LittleFS::readFile(std::string filename) {
 bool Storage_LittleFS::deleteFile(std::string filename) {
   return LittleFS.remove(filename.c_str());
 }
+
+bool Storage_LittleFS::exists(std::string filename) {
+  return LittleFS.exists(filename.c_str());
+}

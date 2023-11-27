@@ -24,7 +24,9 @@ Time_DS3231 ds3231;
 Network_WiFi wifi;
 Serial_UART ser;
 
-WeatherStation ws(ssd1306, wifi, dht22, lfs, ds3231);
+WeatherStation ws(ssd1306, wifi, dht22, lfs, ds3231, ser);
+
+uint32_t sensorLastUpdated = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -32,10 +34,15 @@ void setup() {
   ws.init();
 
   Serial.println("Weather Station Initialized.");
+
+  sensorLastUpdated = millis();
 }
 
 void loop() {
-  ws.updateSensorData();
+  if (sensorLastUpdated - millis() >= ws._cfg.updateInterval_ms) {
+    sensorLastUpdated = millis();
+    ws.updateSensorData();
+  }
 
-  delay(2000);
+  ws.checkSerialConfig();
 }

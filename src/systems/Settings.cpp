@@ -3,6 +3,11 @@
 Settings::Settings(StorageInterface &stg) : _stg(stg) {}
 
 bool Settings::load(std::string filename) {
+  if (_stg.exists(filename) == false) {
+    store();
+    return true;
+  }
+
   std::string settingJson = _stg.readFile(filename);
 
   StaticJsonDocument<96> doc;
