@@ -7,6 +7,8 @@ bool Display_SSD1306::init() {
   }
 
   _oled.setTextColor(SSD1306_WHITE);
+
+  return true;
 }
 
 bool Display_SSD1306::setTemperatureValue(float value) {

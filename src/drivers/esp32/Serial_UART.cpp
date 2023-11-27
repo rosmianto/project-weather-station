@@ -13,4 +13,7 @@ std::string Serial_UART::read() {
   return "";
 }
 
-bool Serial_UART::write(std::string text) { Serial.println(text.c_str()); }
+bool Serial_UART::write(std::string text) {
+  Serial.println(text.c_str());
+  return true;
+}
