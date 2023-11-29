@@ -6,7 +6,29 @@ project(weather_station)
 
 add_compile_options(-std=gnu++17)
 
+# We will be using Catch2 v3
 add_subdirectory(Catch2-3.4.0)
 
+# Directory where the .h files live
+include_directories(../src)
+include_directories(../include)
+include_directories(../lib/ArduinoJson-6.21.3/src)
+
+# System module
+add_library(Configurator   STATIC ../src/systems/Configurator.cpp)
+add_library(Formatter      STATIC ../src/systems/Formatter.cpp)
+add_library(Settings       STATIC ../src/systems/Settings.cpp)
+add_library(WeatherStation STATIC ../src/WeatherStation.cpp)
+
+# Driver module
+add_library(Storage_Linux  STATIC ../src/drivers/linux/Storage_Linux.cpp)
+
+# Test module
 add_executable(tests test.cpp)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
+
+add_executable(TestSettings TestSettings.cpp)
+target_link_libraries(TestSettings PRIVATE Catch2::Catch2WithMain Storage_Linux Settings)
+
+add_executable(TestFormatter TestFormatter.cpp)
+target_link_libraries(TestFormatter PRIVATE Catch2::Catch2WithMain Formatter)

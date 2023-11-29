@@ -15,8 +15,7 @@ bool Settings::load(std::string filename) {
   DeserializationError error = deserializeJson(doc, settingJson);
 
   if (error) {
-    printf("deserializeJson() failed: ");
-    printf(error.c_str());
+    printf("deserializeJson() failed: %s\r\n", error.c_str());
     return false;
   }
 
@@ -27,7 +26,7 @@ bool Settings::load(std::string filename) {
 }
 
 bool Settings::store(std::string filename) {
-  StaticJsonDocument<32> doc;
+  StaticJsonDocument<64> doc;
 
   doc["timezone"] = timezone;
   doc["updateInterval_ms"] = updateInterval_ms;
