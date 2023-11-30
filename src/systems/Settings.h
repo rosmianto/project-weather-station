@@ -8,7 +8,7 @@ class Settings {
 public:
   Settings(StorageInterface &stg);
 
-  uint8_t timezone = 7;
+  int8_t timezone = 7;
   uint32_t updateInterval_ms = 2000;
 
   bool load(std::string filename = "/settings.json");

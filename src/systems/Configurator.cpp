@@ -1,3 +1,5 @@
 #include "Configurator.h"
 
-std::string Configurator::processInput(std::string input) { return "OK"; }
+Configurator::Configurator(Settings &cfg) : _cfg(cfg) {}
+
+std::string Configurator::processInput(std::string input) { return "ERROR"; }
