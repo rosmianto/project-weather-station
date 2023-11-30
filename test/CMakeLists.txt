@@ -36,3 +36,7 @@ target_link_libraries(TestFormatter PRIVATE Catch2::Catch2WithMain Formatter)
 add_executable(TestConfigurator TestConfigurator.cpp)
 target_link_libraries(TestConfigurator PRIVATE Catch2::Catch2WithMain Configurator Settings Storage_Linux)
 
+add_test(tests tests)
+add_test(TestSettings TestSettings)
+add_test(TestFormatter TestFormatter)
+add_test(TestConfigurator TestConfigurator)
