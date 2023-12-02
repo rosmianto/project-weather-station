@@ -40,3 +40,22 @@ add_test(tests tests)
 add_test(TestSettings TestSettings)
 add_test(TestFormatter TestFormatter)
 add_test(TestConfigurator TestConfigurator)
+
+# Location of Code Coverage module
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
+
+if(CMAKE_COMPILER_IS_GNUCXX)
+    include(code-coverage)
+    setup_target_for_coverage_gcovr_html(
+        NAME coverage
+        EXECUTABLE TestSettings
+        EXCLUDE "Catch2-3.4.0/*" "fakeit.hpp"
+    )
+    append_coverage_compiler_flags()
+endif()
+
+add_code_coverage(
+    NAME coverage
+    DEPENDENCIES TestSettings
+    EXCLUDE "Catch2-3.4.0/*" "fakeit.hpp"
+)
