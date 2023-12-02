@@ -4,6 +4,8 @@ enable_testing()
 
 project(weather_station)
 
+# option(CODE_COVERAGE ON)
+
 add_compile_options(-std=gnu++17)
 
 # We will be using Catch2 v3
@@ -44,18 +46,24 @@ add_test(TestConfigurator TestConfigurator)
 # Location of Code Coverage module
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 
-if(CMAKE_COMPILER_IS_GNUCXX)
-    include(code-coverage)
-    setup_target_for_coverage_gcovr_html(
-        NAME coverage
-        EXECUTABLE TestSettings
-        EXCLUDE "Catch2-3.4.0/*" "fakeit.hpp"
-    )
-    append_coverage_compiler_flags()
-endif()
+# include(code-coverage)
 
-add_code_coverage(
-    NAME coverage
-    DEPENDENCIES TestSettings
-    EXCLUDE "Catch2-3.4.0/*" "fakeit.hpp"
-)
+# target_code_coverage(tests)
+# target_code_coverage(TestSettings)
+# target_code_coverage(TestFormatter)
+# target_code_coverage(TestConfigurator)
+
+# if(CMAKE_COMPILER_IS_GNUCXX)
+#     setup_target_for_coverage_gcovr_html(
+#         NAME coverage
+#         EXECUTABLE TestSettings
+#         EXCLUDE "Catch2-3.4.0/*" "fakeit.hpp"
+#     )
+#     append_coverage_compiler_flags()
+# endif()
+
+# add_code_coverage(
+#     NAME coverage
+#     DEPENDENCIES TestSettings
+#     EXCLUDE "Catch2-3.4.0/*" "fakeit.hpp"
+# )
