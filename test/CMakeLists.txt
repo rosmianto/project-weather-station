@@ -4,9 +4,12 @@ enable_testing()
 
 project(weather_station)
 
-# option(CODE_COVERAGE ON)
-
 add_compile_options(-std=gnu++17)
+
+# Location of Code Coverage module
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
+
+include(code-coverage)
 
 # We will be using Catch2 v3
 add_subdirectory(Catch2-3.4.0)
@@ -21,6 +24,10 @@ add_library(Configurator   STATIC ../src/systems/Configurator.cpp)
 add_library(Formatter      STATIC ../src/systems/Formatter.cpp)
 add_library(Settings       STATIC ../src/systems/Settings.cpp)
 add_library(WeatherStation STATIC ../src/WeatherStation.cpp)
+target_compile_options(Configurator PRIVATE --coverage)
+target_compile_options(Formatter PRIVATE --coverage)
+target_compile_options(Settings PRIVATE --coverage)
+target_compile_options(WeatherStation PRIVATE --coverage)
 
 # Driver module
 add_library(Storage_Linux  STATIC ../src/drivers/linux/Storage_Linux.cpp)
@@ -43,27 +50,8 @@ add_test(TestSettings TestSettings)
 add_test(TestFormatter TestFormatter)
 add_test(TestConfigurator TestConfigurator)
 
-# Location of Code Coverage module
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
-
-# include(code-coverage)
-
-# target_code_coverage(tests)
-# target_code_coverage(TestSettings)
-# target_code_coverage(TestFormatter)
-# target_code_coverage(TestConfigurator)
-
-# if(CMAKE_COMPILER_IS_GNUCXX)
-#     setup_target_for_coverage_gcovr_html(
-#         NAME coverage
-#         EXECUTABLE TestSettings
-#         EXCLUDE "Catch2-3.4.0/*" "fakeit.hpp"
-#     )
-#     append_coverage_compiler_flags()
-# endif()
-
-# add_code_coverage(
-#     NAME coverage
-#     DEPENDENCIES TestSettings
-#     EXCLUDE "Catch2-3.4.0/*" "fakeit.hpp"
-# )
+add_code_coverage_all_targets(EXCLUDE /home/adjie/content-creator/project-weather-station/lib/* */Catch2-3.4.0/* /usr/include/*)
+target_code_coverage(tests ALL EXCLUDE /home/adjie/content-creator/project-weather-station/lib/* */Catch2-3.4.0/* /usr/include/*)
+target_code_coverage(TestSettings ALL EXCLUDE /home/adjie/content-creator/project-weather-station/lib/* */Catch2-3.4.0/* /usr/include/*)
+target_code_coverage(TestFormatter ALL EXCLUDE /home/adjie/content-creator/project-weather-station/lib/* */Catch2-3.4.0/* /usr/include/*)
+# target_code_coverage(TestConfigurator ALL)    
