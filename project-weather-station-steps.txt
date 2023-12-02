@@ -114,5 +114,6 @@ Certainly! Designing features that can be tested independently of the hardware i
 
 Each of these features can be developed and tested without the need for physical hardware, focusing instead on the logic and functionality of the software. They provide a wide range of testing scenarios, from basic function testing to more complex integration and error-handling tests.
 ----------------------------------------------
+cmake -DCODE_COVERAGE=1 -DCMAKE_BUILD_TYPE=DEBUG ..
 
-
+You need to install lcov first to make the code coverage reporting works.

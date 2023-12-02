@@ -6,10 +6,9 @@ project(weather_station)
 
 add_compile_options(-std=gnu++17)
 
-# Location of Code Coverage module
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 
-include(code-coverage)
+option(CMAKE_BUILD_TYPE "Build type" Debug)
+
 
 # We will be using Catch2 v3
 add_subdirectory(Catch2-3.4.0)
@@ -24,10 +23,6 @@ add_library(Configurator   STATIC ../src/systems/Configurator.cpp)
 add_library(Formatter      STATIC ../src/systems/Formatter.cpp)
 add_library(Settings       STATIC ../src/systems/Settings.cpp)
 add_library(WeatherStation STATIC ../src/WeatherStation.cpp)
-target_compile_options(Configurator PRIVATE --coverage)
-target_compile_options(Formatter PRIVATE --coverage)
-target_compile_options(Settings PRIVATE --coverage)
-target_compile_options(WeatherStation PRIVATE --coverage)
 
 # Driver module
 add_library(Storage_Linux  STATIC ../src/drivers/linux/Storage_Linux.cpp)
@@ -50,8 +45,19 @@ add_test(TestSettings TestSettings)
 add_test(TestFormatter TestFormatter)
 add_test(TestConfigurator TestConfigurator)
 
-add_code_coverage_all_targets(EXCLUDE /home/adjie/content-creator/project-weather-station/lib/* */Catch2-3.4.0/* /usr/include/*)
-target_code_coverage(tests ALL EXCLUDE /home/adjie/content-creator/project-weather-station/lib/* */Catch2-3.4.0/* /usr/include/*)
-target_code_coverage(TestSettings ALL EXCLUDE /home/adjie/content-creator/project-weather-station/lib/* */Catch2-3.4.0/* /usr/include/*)
-target_code_coverage(TestFormatter ALL EXCLUDE /home/adjie/content-creator/project-weather-station/lib/* */Catch2-3.4.0/* /usr/include/*)
-# target_code_coverage(TestConfigurator ALL)    
+if(CODE_COVERAGE)
+    # Location of Code Coverage module
+    set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
+    include(code-coverage)
+
+    target_compile_options(Configurator PRIVATE --coverage)
+    target_compile_options(Formatter PRIVATE --coverage)
+    target_compile_options(Settings PRIVATE --coverage)
+    target_compile_options(WeatherStation PRIVATE --coverage)
+
+    add_code_coverage_all_targets(EXCLUDE */lib/* */Catch2-3.4.0/* /usr/include/*)
+    target_code_coverage(tests ALL EXCLUDE */lib/* */Catch2-3.4.0/* /usr/include/*)
+    target_code_coverage(TestSettings ALL EXCLUDE */lib/* */Catch2-3.4.0/* /usr/include/*)
+    target_code_coverage(TestFormatter ALL EXCLUDE */lib/* */Catch2-3.4.0/* /usr/include/*)
+    # target_code_coverage(TestConfigurator ALL)
+endif()
