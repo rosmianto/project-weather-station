@@ -40,7 +40,6 @@ void Display_SSD1306::refreshDisplay() {
   _oled.setCursor(0, 0);
   _oled.printf("Temp: %.2f\r\n", _temperature);
   _oled.printf("Hum: %.2f\r\n", _humidity);
-  _oled.printf("Connected: %d\r\n", _connectionStatus);
-  _oled.printf("Time: %s\r\n", _datetimeStr);
+  _oled.printf("Time: %s\r\n", _datetimeStr.c_str());
   _oled.display();
 }

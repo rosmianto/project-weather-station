@@ -81,4 +81,10 @@ TEST_CASE("Configurator::processInput()", "[configurator]") {
     REQUIRE(cfg.updateInterval_ms == 1000);
     REQUIRE(cfg.timezone == -7);
   }
+
+  SECTION("Update Datetime") {
+    std::string input = "unixtime:1700793918";
+    std::string result = configurator.processInput(input);
+    REQUIRE(result == "OK");
+  }
 }

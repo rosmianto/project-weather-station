@@ -13,7 +13,7 @@ bool WeatherStation::init() {
   _time.init();
   _ser.init();
 
-  _time.setCurrentTime(1700793918UL);
+  // _time.setCurrentTime(1700793918UL);
 
   _disp.setConnectionStatus(false);
 

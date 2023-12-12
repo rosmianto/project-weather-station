@@ -1,12 +1,12 @@
 #include <Arduino.h>
 
+#include <WeatherStation.h>
 #include <drivers/esp32/Display_SSD1306.h>
 #include <drivers/esp32/Network_WiFi.h>
 #include <drivers/esp32/Sensor_DHT22.h>
 #include <drivers/esp32/Serial_UART.h>
 #include <drivers/esp32/Storage_LittleFS.h>
 #include <drivers/esp32/Time_DS3231.h>
-#include <systems/WeatherStation.h>
 
 // TODO: Add autoformatter for a consistent coding style.
 // Feature proposal:
@@ -39,7 +39,7 @@ void setup() {
 }
 
 void loop() {
-  if (sensorLastUpdated - millis() >= ws._cfg.updateInterval_ms) {
+  if (millis() - sensorLastUpdated >= ws._cfg.updateInterval_ms) {
     sensorLastUpdated = millis();
     ws.updateSensorData();
   }

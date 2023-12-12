@@ -10,6 +10,8 @@ bool Settings::load(std::string filename) {
 
   std::string settingJson = _stg.readFile(filename);
 
+  printf("Setting JSON: %s\r\n", settingJson.c_str());
+
   StaticJsonDocument<96> doc;
 
   DeserializationError error = deserializeJson(doc, settingJson);
