@@ -65,4 +65,20 @@ TEST_CASE("Configurator::processInput()", "[configurator]") {
     REQUIRE(result == "ERROR");
     REQUIRE(cfg.updateInterval_ms == 1000);
   }
+
+  SECTION("Store current Settings") {
+    std::string input = "store";
+    std::string result = configurator.processInput(input);
+    REQUIRE(result == "OK");
+    REQUIRE(cfg.updateInterval_ms == 1000);
+    REQUIRE(cfg.timezone == -7);
+  }
+
+  SECTION("Load current Settings") {
+    std::string input = "load";
+    std::string result = configurator.processInput(input);
+    REQUIRE(result == "OK");
+    REQUIRE(cfg.updateInterval_ms == 1000);
+    REQUIRE(cfg.timezone == -7);
+  }
 }
