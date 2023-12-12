@@ -18,6 +18,14 @@ std::string Configurator::processInput(std::string input) {
   std::getline(iss, key, ':');
   std::getline(iss, valueStr, ':');
 
+  if (key == "load") {
+    _cfg.load();
+    return "OK";
+  } else if (key == "store") {
+    _cfg.store();
+    return "OK";
+  }
+
   if (valueStr.size() > 0) {
     value = std::stoi(valueStr);
   } else {
