@@ -2,6 +2,7 @@
     "cmake.configureOnOpen": false,
     "files.associations": {
         "atomic": "cpp",
-        "memory_resource": "cpp"
+        "memory_resource": "cpp",
+        "iosfwd": "cpp"
     }
 }

@@ -11,10 +11,11 @@ Configurator configurator(cfg);
 
 // This is actually not a unit test, this is a integration test.
 TEST_CASE("Configurator::processInput()", "[configurator]") {
-  SECTION("should return OK") {
+
+  SECTION("should return ERROR") {
     std::string input = "OK";
     std::string result = configurator.processInput(input);
-    REQUIRE(result == "OK");
+    REQUIRE(result == "ERROR");
   }
 
   SECTION("should return ERROR") {
@@ -41,7 +42,7 @@ TEST_CASE("Configurator::processInput()", "[configurator]") {
     std::string input = "timezone:";
     std::string result = configurator.processInput(input);
     REQUIRE(result == "ERROR");
-    REQUIRE(cfg.timezone == 7);
+    REQUIRE(cfg.timezone == -7);
   }
 
   SECTION("Updating Interval") {
@@ -53,6 +54,13 @@ TEST_CASE("Configurator::processInput()", "[configurator]") {
 
   SECTION("Updating Negative Interval") {
     std::string input = "interval:-1000";
+    std::string result = configurator.processInput(input);
+    REQUIRE(result == "ERROR");
+    REQUIRE(cfg.updateInterval_ms == 1000);
+  }
+
+  SECTION("Invalid Field Name") {
+    std::string input = "intervaaa:1000";
     std::string result = configurator.processInput(input);
     REQUIRE(result == "ERROR");
     REQUIRE(cfg.updateInterval_ms == 1000);
