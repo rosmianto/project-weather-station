@@ -26,6 +26,7 @@ add_library(WeatherStation STATIC ../src/WeatherStation.cpp)
 
 # Driver module
 add_library(Storage_Linux  STATIC ../src/drivers/linux/Storage_Linux.cpp)
+add_library(Time_Dummy     STATIC ../src/drivers/dummy/Time_Dummy.cpp)
 
 # Test module
 add_executable(tests test.cpp)
@@ -38,7 +39,7 @@ add_executable(TestFormatter TestFormatter.cpp)
 target_link_libraries(TestFormatter PRIVATE Catch2::Catch2WithMain Formatter)
 
 add_executable(TestConfigurator TestConfigurator.cpp)
-target_link_libraries(TestConfigurator PRIVATE Catch2::Catch2WithMain Configurator Settings Storage_Linux)
+target_link_libraries(TestConfigurator PRIVATE Catch2::Catch2WithMain Configurator Settings Storage_Linux Time_Dummy)
 
 add_test(tests tests)
 add_test(TestSettings TestSettings)

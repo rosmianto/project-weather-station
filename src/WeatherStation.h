@@ -32,5 +32,5 @@ private:
 
 public:
   Settings _cfg{_stg};
-  Configurator _cfgr{_cfg};
+  Configurator _cfgr{_cfg, _time};
 };

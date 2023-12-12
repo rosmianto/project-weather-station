@@ -2,7 +2,8 @@
 
 #include <sstream> // Include the necessary header file
 
-Configurator::Configurator(Settings &cfg) : _cfg(cfg) {}
+Configurator::Configurator(Settings &cfg, TimeInterface &time)
+    : _cfg(cfg), _time(time) {}
 
 #include <sstream> // Include the necessary header file
 
@@ -45,6 +46,9 @@ std::string Configurator::processInput(std::string input) {
       _cfg.updateInterval_ms = value;
       return "OK";
     }
+  } else if (key == "unixtime") {
+    _time.setCurrentTime(value);
+    return "OK";
   }
 
   return "ERROR";
