@@ -13,8 +13,6 @@ bool WeatherStation::init() {
   _time.init();
   _ser.init();
 
-  // _time.setCurrentTime(1700793918UL);
-
   _disp.setConnectionStatus(false);
 
   _cfg.load();
@@ -26,7 +24,7 @@ bool WeatherStation::init() {
 
 bool WeatherStation::updateSensorData() {
   std::string currentDatetime =
-      Formatter::formatTime(_time.getCurrentTime(), _cfg.timezone);
+      Formatter::formatTime(_time.getCurrentTime(), _cfg.getTimezone());
   _disp.setDatetimeValue(currentDatetime);
   _disp.setHumidityValue(_sens.readHumidity());
   _disp.setTemperatureValue(_sens.readTemperature());

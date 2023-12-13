@@ -21,8 +21,8 @@ bool Settings::load(std::string filename) {
     return false;
   }
 
-  timezone = doc["timezone"];
-  updateInterval_ms = doc["updateInterval_ms"];
+  _timezone = doc["timezone"];
+  _updateInterval_ms = doc["updateInterval_ms"];
 
   return true;
 }
@@ -30,8 +30,8 @@ bool Settings::load(std::string filename) {
 bool Settings::store(std::string filename) {
   StaticJsonDocument<64> doc;
 
-  doc["timezone"] = timezone;
-  doc["updateInterval_ms"] = updateInterval_ms;
+  doc["timezone"] = _timezone;
+  doc["updateInterval_ms"] = _updateInterval_ms;
 
   std::string settingJson;
   serializeJsonPretty(doc, settingJson);
@@ -40,3 +40,13 @@ bool Settings::store(std::string filename) {
 
   return result;
 }
+
+bool Settings::setInterval(uint32_t milliseconds) {
+  _updateInterval_ms = milliseconds;
+}
+
+bool Settings::setTimezone(int8_t timezone) { _timezone = timezone; }
+
+uint32_t Settings::getInterval() { return _updateInterval_ms; }
+
+int8_t Settings::getTimezone() { return _timezone; }

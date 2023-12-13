@@ -27,8 +27,8 @@ TEST_CASE("Settings::store()", "[settings]") {
 TEST_CASE("Settings::load()", "[settings]") {
   SECTION("Load settings from file") {
     REQUIRE(settings.load("test_settings.json"));
-    REQUIRE(settings.timezone == 7);
-    REQUIRE(settings.updateInterval_ms == 2000);
+    REQUIRE(settings.getTimezone() == 7);
+    REQUIRE(settings.getInterval() == 2000);
   }
 }
 

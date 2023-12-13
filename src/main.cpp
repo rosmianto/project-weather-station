@@ -39,7 +39,7 @@ void setup() {
 }
 
 void loop() {
-  if (millis() - sensorLastUpdated >= ws._cfg.updateInterval_ms) {
+  if (millis() - sensorLastUpdated >= ws._cfg.getInterval()) {
     sensorLastUpdated = millis();
     ws.updateSensorData();
   }

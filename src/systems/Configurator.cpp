@@ -38,12 +38,12 @@ std::string Configurator::processInput(std::string input) {
 
   if (key == "timezone") {
     if (-12 <= value && value <= 14) {
-      _cfg.timezone = value;
+      _cfg.setTimezone(value);
       return "OK";
     }
   } else if (key == "interval") {
     if (value >= 100 && value <= 60000) {
-      _cfg.updateInterval_ms = value;
+      _cfg.setInterval(value);
       return "OK";
     }
   } else if (key == "unixtime") {

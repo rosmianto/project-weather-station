@@ -30,58 +30,58 @@ TEST_CASE("Configurator::processInput()", "[configurator]") {
     std::string input = "timezone:+7";
     std::string result = configurator.processInput(input);
     REQUIRE(result == "OK");
-    REQUIRE(cfg.timezone == 7);
+    REQUIRE(cfg.getTimezone() == 7);
   }
 
   SECTION("Updating negative Timezone") {
     std::string input = "timezone:-7";
     std::string result = configurator.processInput(input);
     REQUIRE(result == "OK");
-    REQUIRE(cfg.timezone == -7);
+    REQUIRE(cfg.getTimezone() == -7);
   }
 
   SECTION("Incomplete timezone format") {
     std::string input = "timezone:";
     std::string result = configurator.processInput(input);
     REQUIRE(result == "ERROR");
-    REQUIRE(cfg.timezone == -7);
+    REQUIRE(cfg.getTimezone() == -7);
   }
 
   SECTION("Updating Interval") {
     std::string input = "interval:1000";
     std::string result = configurator.processInput(input);
     REQUIRE(result == "OK");
-    REQUIRE(cfg.updateInterval_ms == 1000);
+    REQUIRE(cfg.getInterval() == 1000);
   }
 
   SECTION("Updating Negative Interval") {
     std::string input = "interval:-1000";
     std::string result = configurator.processInput(input);
     REQUIRE(result == "ERROR");
-    REQUIRE(cfg.updateInterval_ms == 1000);
+    REQUIRE(cfg.getInterval() == 1000);
   }
 
   SECTION("Invalid Field Name") {
     std::string input = "intervaaa:1000";
     std::string result = configurator.processInput(input);
     REQUIRE(result == "ERROR");
-    REQUIRE(cfg.updateInterval_ms == 1000);
+    REQUIRE(cfg.getInterval() == 1000);
   }
 
   SECTION("Store current Settings") {
     std::string input = "store";
     std::string result = configurator.processInput(input);
     REQUIRE(result == "OK");
-    REQUIRE(cfg.updateInterval_ms == 1000);
-    REQUIRE(cfg.timezone == -7);
+    REQUIRE(cfg.getInterval() == 1000);
+    REQUIRE(cfg.getTimezone() == -7);
   }
 
   SECTION("Load current Settings") {
     std::string input = "load";
     std::string result = configurator.processInput(input);
     REQUIRE(result == "OK");
-    REQUIRE(cfg.updateInterval_ms == 1000);
-    REQUIRE(cfg.timezone == -7);
+    REQUIRE(cfg.getInterval() == 1000);
+    REQUIRE(cfg.getTimezone() == -7);
   }
 
   SECTION("Update Datetime") {
