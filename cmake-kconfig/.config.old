@@ -1,0 +1,4 @@
+CONFIG_TEMP_DHT22=y
+# CONFIG_TEMP_AHT10 is not set
+# CONFIG_TEMP_BME280 is not set
+# CONFIG_TEMP_DUMMY is not set

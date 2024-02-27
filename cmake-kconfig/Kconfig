@@ -1,0 +1,15 @@
+mainmenu "Weather Station Project"
+
+choice TEMP_SENSOR
+    prompt "Temperature Sensor"
+    default TEMP_DHT22
+
+    config TEMP_DHT22
+        bool "DHT22"
+    config TEMP_AHT10
+        bool "AHT10"
+    config TEMP_BME280
+        bool "BME280"
+    config TEMP_DUMMY
+        bool "Dummy Sensor"
+endchoice

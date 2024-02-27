@@ -1,0 +1,1 @@
+/Volumes/Dev-HD/fwguide/project-weather-station/cmake-kconfig/Kconfig

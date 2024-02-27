@@ -5,3 +5,5 @@
 .vscode/ipch
 test/build
 *.bkp
+*CMakeFiles*
+.DS_Store
