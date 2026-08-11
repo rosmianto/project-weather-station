@@ -76,9 +76,9 @@ After implementing the interfaces, we then begin to create the drivers for each 
 * SSD1306
 
 ---------------------------------------------------------------
-chatgpt output
+Here I use chatgpt to brainstorm more features we can possibly implement (but optional):
 
-Certainly! Designing features that can be tested independently of the hardware is a great approach for educational purposes, especially when focusing on unit testing and software architecture. Here are some feature ideas that are hardware-independent and suitable for creating test cases:
+ChatGPT: Designing features that can be tested independently of the hardware is a great approach for educational purposes, especially when focusing on unit testing and software architecture. Here are some feature ideas that are hardware-independent and suitable for creating test cases:
 
     JSON Configuration Parser:
         Feature Description: Implement a parser that reads and applies settings from a JSON configuration file. This file could include settings like measurement units (Celsius/Fahrenheit), data logging intervals, or alert thresholds.
